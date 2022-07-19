@@ -18,7 +18,9 @@ function addElement(value, index) {
     arr[0] = value;
   }
   if (index === arr.length) {
-    arr[arr.length - 1] = value;
+    arr[index] = value;
+    console.log(arr);
+    return;
   }
   if (index > arr.length) {
     arr[index] = value;
@@ -34,12 +36,13 @@ function addElement(value, index) {
 }
 
 // addElement(15, 0);
-// addElement(15, 1);
+// addElement(15, 5);
 // addElement(15, 7);
 // addElement(15, 11);
 
 // Problem 2: Nhập mảng sao cho khi nhập xong giá trị trong mảng được sắp xếp giảm dần.
 // note: không dùng sort()
+// array.length-1-i sẽ tương đương với array.length-1-0 ở lần thứ nhất của outer loop và array.length-1-1 ở lần lặp thứ hai.. cho đến hết.
 
 let arr2 = [];
 
@@ -72,7 +75,7 @@ function sortElementArray2() {
   console.log(arr3);
 }
 
-sortElementArray2();
+// sortElementArray2();
 
 // Problem 4: Xóa phần tử trùng lặp trong mảng
 
@@ -85,7 +88,7 @@ const uniqueArr = arr4.filter((c, index) => {
   return arr4.indexOf(c) === index;
 });
 
-console.log(uniqueArr);
+// console.log(uniqueArr);
 
 // Problem 5: Sử dụng đệ quy, tính S(n) = 1 + 2 + 3 + … + n
 // Công thức:
@@ -95,12 +98,101 @@ console.log(uniqueArr);
 // Tổng dãy số = [(Đầu + Cuối) x Số của các số hạng] / 2
 // ((1 + n) x ( n - 1 / 1 + 1) / 2)
 
-const recursive = (n) => {
+const S = (n) => {
   if (n === 1) {
     return 1;
   } else {
-    return recursive(n - 1) + n;
+    return S(n - 1) + n;
   }
 };
 
-console.log(recursive(3));
+// console.log(S(3));
+
+// Problem 6: Sử dụng đệ quy, tính T(n) = n! =  1 x 2 x 3 x … x n. Trong đó, T(0) = 1
+
+const T = (n) => {
+  if (n === 0) {
+    return 1;
+  } else {
+    return T(n - 1) * n;
+  }
+};
+
+// console.log(T(4));
+
+// Problem 7: Kiếm tra số nguyên dương n có toàn chữ số lẻ hay không?
+const checkInteger = (i) => {
+  const splitI = Array.from(String(i), Number);
+
+  const deepSplit = splitI.filter((e) => {
+    return !Number.isNaN(e);
+  });
+
+  console.log(deepSplit);
+  for (let n of deepSplit) {
+    if (n % 2 == 0) {
+      console.log("đây là chữ số chẵn!");
+    } else {
+      console.log("passed");
+    }
+  }
+};
+
+// console.log(checkInteger(3.111111));
+
+// Problem 8: Magic Square là một ma trận có kích thước n x n. Trong đó, khi cộng các số trên cùng một hàng hoặc một cột bất kỳ,
+// hoặc trên một trong hai đường chéo của ma trận, bạn đều nhận được một số giống nhau, số đó gọi là Magic const.
+// Cho một ma trận 3 x 3 bất kỳ, nó chưa phải là Magic Square. Tính chi phí tối thiểu để chuyển ma trận này -> Magic Square.
+const initialMatrix = [[5, 3, 4, 1, 5, 8, 6, 4, 2]];
+
+const magicSquare = [
+  [8, 1, 6, 3, 5, 7, 4, 9, 2],
+  [4, 3, 8, 9, 5, 1, 2, 7, 6],
+  [2, 9, 4, 7, 5, 3, 6, 1, 8],
+  [6, 7, 2, 1, 5, 9, 8, 3, 4],
+  [6, 1, 8, 7, 5, 3, 2, 9, 4],
+  [8, 3, 4, 1, 5, 9, 6, 7, 2],
+  [4, 9, 2, 3, 5, 7, 8, 1, 6],
+  [2, 7, 6, 9, 5, 1, 4, 3, 8],
+];
+
+// const sompareMatrix = (a, b) => {
+//   for (var i = 0; i < a.length; i++) {
+//     for (var x = 0; x < b.length; x++) {
+//       if (a[i][0] == b[x][0] && a[i][1] == b[x][1] && a[i][2] && b[x][2]) {
+//         console.log("true");
+//       }
+//     }
+//   }
+// };
+
+// console.log(sompareMatrix(initialMatrix, magicSquare));
+
+// const isMagicSquare = (a) => {
+//   var sumd1 = 0;
+//   var sumd2 = 0;
+//   for (var i = 0; i < a.length; i++) {
+//     sumd1 += a[i][i]; // đường chéo từ bên trên trái -> phải dưới
+//     sumd2 += a[i][a.length - 1 - i]; // đường chéo từ bên trên phải -> trái dưới
+//   }
+
+//   if (sumd1 != sumd2) {
+//     return false;
+//   }
+
+//   for (var i = 0; i < a.length; i++) {
+//     var colSum = 0;
+//     var rowSum = 0;
+
+//     for (var j = 0; j < a.length; j++) {
+//       rowSum += a[i][j];
+//       colSum += a[j][i];
+//     }
+//     if (rowSum != colSum || colSum != sumd1) {
+//       return false;
+//     }
+//     return true;
+//   }
+// };
+
+// console.log(isMagicSquare(initialMatrix));
